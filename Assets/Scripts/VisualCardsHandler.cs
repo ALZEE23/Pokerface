@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class VisualCardsHandler : MonoBehaviour
 {
-
     public static VisualCardsHandler instance;
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Debug.LogWarning("Multiple VisualCardsHandler instances found!");
+            Destroy(this);
+            return;
+        }
+
         instance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        Debug.Log("VisualCardsHandler initialized");
     }
 
-    // Update is called once per frame
-    void Update()
+    // Hanya untuk debugging
+    private void OnTransformChildrenChanged()
     {
-        
+        Debug.Log("VisualCardsHandler children changed. Total children: " + transform.childCount);
     }
 }
